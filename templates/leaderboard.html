@@ -4,33 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='leaderboard.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='leaderboard.css') }}">
 </head>
 <body>
-    <div class="container">
+    <div class="layout">
         <div class="sidebar">
             <h2>Menu</h2>
             <ul class="tabs">
-                <!-- Flask routes in sidebar links -->
                 <li class="tab"><a href="/leaderboard">Leaderboard</a></li>
                 <li class="tab"><a href="/user-stats">User Stats</a></li>
                 <li class="tab"><a href="/settings">Settings</a></li>
             </ul>
         </div>
-        <h1>Leaderboard</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Name</th>
-                    <th>Net Score</th>
-                </tr>
-            </thead>
-            <tbody id="leaderboard">
-                <!-- Leaderboard entries will be dynamically added here -->
-            </tbody>
-        </table>
-        <div id="loading" style="text-align: center; padding: 10px;">Loading...</div>
+        <div class="container">
+            <div class="leaderboard-section">
+            <h1>Leaderboard</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Net Score</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard">
+                    <!-- Leaderboard entries will be dynamically added here -->
+                </tbody>
+            </table>
+            <div id="loading" style="text-align: center; padding: 10px;">Loading...</div>
+                </div>
+        </div>
     </div>
 
     <script>
@@ -73,14 +76,12 @@
             });
         }
 
-        // Fetch more data when scrolling near the bottom
         window.addEventListener("scroll", () => {
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100 && !isLoading) {
                 fetchLeaderboardData(currentPage);
             }
         });
 
-        // Initial load
         fetchLeaderboardData(currentPage);
     </script>
 </body>
