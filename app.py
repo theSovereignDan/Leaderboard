@@ -7,11 +7,10 @@ def main_screen():
     return '''
         <html>
             <head>
-                <title>Leadership Board</title>
+                <title>Leaderboard</title>
             </head>
             <body>
-                <h1>Hello, World!</h1>
-                <p>Welcome to my Flask app!</p>
+                <h1>Leaderboard</h1>
             </body>
         </html>
     '''
