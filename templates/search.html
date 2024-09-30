@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sets title for the tab in browser -->
+    <title>Search</title>
+    <!-- Import CSS stylesheets and Image for the Web browser Tab -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/leaderboard.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
+</head>
+<body>
+    <!-- Sidebar -->
+    {% include 'partials/sidebar.html' %}
+
+    <!-- Main container (whole area of screen to right of the sidebar) -->
+    <div class="container">
+        <div class="search-form-container">
+            <!-- Popup code -->
+            {% include 'partials/popup.html' %}
+
+            <!-- Search & Filter area -->
+            <!-- Provides header text and explaination-->
+            <h1>Search & Filter</h1>
+            <p  class="searchtext">Use the form below to search for a specific user or filter leaderboard results by score and ranking.</p>
+            <!-- Search form -->
+            <form class="search-form" id="search-form">
+                <!-- Search for a specific name text and input to enter name-->
+                <label id="namelabel" for="name"><b>Search by Name:</b></label>
+                <input id="name" placeholder="Enter name">
+
+                <!-- Filter by score text and option (dropbdown box) selection -->
+                <label id="scorelabel" for="score"><b>Filter by Score:</b></label>
+                <select id="score" name="scoreFilter">
+                    <option value="above">Above</option>
+                    <option value="below">Below</option>
+                    <option value="between">Between</option>
+                </select>
+
+                <!-- Depending on filtering above/below or between either just score threshold input displayed or 2 fields inputs for low and high-->
+                <!--  If filtering score just above or below certain number an input is displayed to enter it-->
+                <input type="number" min="0" id="score-threshold" placeholder="Enter score threshold">
+                <!--  If filtering score between two values two inputs are displayed to enter those values-->
+                <div class="between-fields" id="score-between-fields">
+                    <input type="number" min="0" id="score-threshold-low" placeholder="Enter lower score threshold">
+                    <input type="number" min="0" id="score-threshold-high" placeholder="Enter upper score threshold">
+                </div>
+
+                <!-- Filter by rank text and option (dropbdown box) selection -->
+                <label id="ranklabel"for="rank"><b>Filter by Ranking:</b></label>
+                <select id="rank" name="rankFilter">
+                    <option value="above">Above</option>
+                    <option value="below">Below</option>
+                    <option value="between">Between</option>
+                </select>
+
+                <!-- Depending on filtering above/below or between either just rank threshold input displayed or 2 fields inputs for low and high-->
+                <!--  If filtering rank just above or below certain number one input is displayed to enter it-->
+                <input type="number" min="0" id="rank-threshold" placeholder="Enter rank threshold">
+                <!--  If filtering rank between two values two inputs are displayed to enter those values-->
+                <div class="between-fields" id="rank-between-fields">
+                    <input type="number" min="0" id="rank-threshold-low" placeholder="Enter lower rank threshold">
+                    <input type="number" min="0" id="rank-threshold-high" placeholder="Enter upper rank threshold">
+                </div>
+
+                <!-- submit button that when pressed (either displays pop up if you've not entered name) or takes you to new page with the results -->
+                <!-- the findbyuser.js file detects when its clicked-->
+                <button type="submit">Search</button>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Link to javascript file to handle many of the form elements and submission button click -->
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
+
+</body>
+</html>

@@ -3,86 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaderboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='leaderboard.css') }}">
+    <!-- Sets title for the tab in browser -->
+    <title>
+    {% if which_leaderboard == "top" %}
+        Top 20 Scores 
+    {% elif which_leaderboard == "worst" %}
+        Worst 20 Scores 
+    {% else %}
+        ScoreQuest
+    {% endif %}
+    </title>
+    <!-- Import CSS stylesheets and Image for the Web browser Tab -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/leaderboard.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/x-icon">
 </head>
 <body>
-    <div class="layout">
-        <div class="sidebar">
-            <h2>Menu</h2>
-            <ul class="tabs">
-                <li class="tab"><a href="/leaderboard">Leaderboard</a></li>
-                <li class="tab"><a href="/user-stats">User Stats</a></li>
-                <li class="tab"><a href="/settings">Settings</a></li>
-            </ul>
-        </div>
-        <div class="container">
-            <div class="leaderboard-section">
-            <h1>Leaderboard</h1>
-            <table>
-                <thead>
+    <!-- Sidebar -->
+    {% include 'partials/sidebar.html' %}
+
+    <!-- Main Content Container -->
+    <div class="container">
+        <!-- Conditional Rendering to display different header for the page depnding which leaderboard we on -->
+        <h1>
+            {% if which_leaderboard == "top" %}
+                Top 20 Scores 
+            {% elif which_leaderboard == "worst" %}
+                Worst 20 Scores 
+            {% else %}
+                All Scores Leaderboard
+            {% endif %}
+        </h1>            
+        
+        <!-- Leaderboard Table -->
+        <table>
+            <!-- Table header section which sets the titles of the columns -->
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Net Score</th>
+                </tr>
+            </thead>
+            <!-- Body of the table -->
+            <tbody id="leaderboard">
+                <!-- Loop through each user in the leaderboard_data it recieves and display its details in the table -->
+                {% for user in leaderboard_data %}
                     <tr>
-                        <th>Rank</th>
-                        <th>Name</th>
-                        <th>Net Score</th>
+                        <td>{{ user.rank }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user['overall score'] }}</td>
                     </tr>
-                </thead>
-                <tbody id="leaderboard">
-                    <!-- Leaderboard entries will be dynamically added here -->
-                </tbody>
-            </table>
-            <div id="loading" style="text-align: center; padding: 10px;">Loading...</div>
-                </div>
+                {% endfor %}
+            </tbody>
+        </table>
         </div>
     </div>
-
-    <script>
-        let currentPage = 1;
-        let isLoading = false;
-        let hasMoreData = true;
-
-        function fetchLeaderboardData(page) {
-            if (!hasMoreData || isLoading) return;
-            isLoading = true;
-            
-            fetch(`/leaderboard-data?page=${page}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length === 0) {
-                        hasMoreData = false;
-                        document.getElementById("loading").textContent = "No more entries";
-                    } else {
-                        appendLeaderboardData(data);
-                        currentPage++;
-                    }
-                    isLoading = false;
-                })
-                .catch(error => {
-                    console.error("Error fetching data:", error);
-                    isLoading = false;
-                });
-        }
-
-        function appendLeaderboardData(entries) {
-            const leaderboard = document.getElementById("leaderboard");
-            entries.forEach(entry => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${entry.rank}</td>
-                    <td>${entry.name}</td>
-                    <td>${entry["overall score"]}</td>
-                `;
-                leaderboard.appendChild(row);
-            });
-        }
-
-        window.addEventListener("scroll", () => {
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100 && !isLoading) {
-                fetchLeaderboardData(currentPage);
-            }
-        });
-
-        fetchLeaderboardData(currentPage);
-    </script>
 </body>
 </html>

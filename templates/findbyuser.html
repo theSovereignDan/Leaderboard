@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sets title for the tab in browser -->
+    <title>Find by User</title>
+    <!-- Import CSS stylesheets and Image for the Web browser Tab -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/leaderboard.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/findbyuser.css') }}">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    {% include 'partials/sidebar.html' %}
+
+    <!-- Main container -->
+    <div class="container">
+        <div class="search-form-container">
+
+            <!-- Popup code -->
+            {% include 'partials/popup.html' %}
+
+            <!-- Provides header text and explaination-->
+            <h1>Search User Submissions</h1>
+            <p class="searchtext">
+                Enter a name to view all the user's submissions. Each submission will include a breakdown of the score and the date it was made, contributing to their total net score. </p>
+            <p class="searchtext">
+                The leaderboard is calculated based on the user's best 24 submissions, with only users having at least 3 submissions appearing in the rankings.
+            </p>
+
+            <!-- Search Form for searching user submissions -->
+            <form class="search-form" id="search-form">
+
+                <!-- Search for a specific name text and input to enter name-->
+                <label for="name"><b>Search by Name:</b></label>
+                <input id="name" placeholder="Enter name">
+
+                <!-- Sort by Date or score text and option (dropbdown box) selection -->
+                <label for="sort"><b>Sort by:</b></label>
+                <select id="sort" name="sort">
+                    <option value="date">Date</option>
+                    <option value="score">Score</option>
+                </select>
+
+                <!-- Sort by Order (Ascending or Descending) text and option (dropdown box) selection-->
+                <label for="order"><b>Sort Order:</b></label>
+                <select id="order" name="order">
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+        
+                <!-- Choose between best 24 (those counted towards net scores on leaderboard) or all submissions text and option (dropdown box) selection -->
+                <label for="qualified-or-all"><b>
+                    Choose between viewing the user's best 24 submissions  (a minimum of 3 required to qualify for ranking on the leaderboard) or displaying all submissions
+                </b></label>
+                <select id="qualified-or-all" name="submission-limit">
+                    <option value="qualified">Best 24 Submissions (min 3 required)</option>
+                    <option value="all">Show All Submissions</option>
+                </select>
+
+                <!-- Button to search for submissions-->
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Link to javascript file to handle form elements, inputs and pop-up (when user doesn't fill everything in) and so forth-->
+    <script src="{{ url_for('static', filename='js/findbyuser.js') }}"></script>
+
+</body>
+</html>

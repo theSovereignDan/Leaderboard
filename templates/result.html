@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sets title for the tab in browser -->
+    <title>Search Results</title>
+    <!-- Import CSS stylesheets and Image for the Web browser Tab -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/leaderboard.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+</head>
+<body>
+    <!-- Sidebar -->
+    {% include 'partials/sidebar.html' %}
+
+    <!-- Main Content Container (whole area of screen to right of the sidebar) -->
+    <div class="container">
+        <div class="leaderboard-section">
+            <h1>Search Results</h1>
+            <!-- Information Container (Contains message to user about the search) -->
+            <div class="search-message">
+                <p class="search-info">
+                    {{ message }} 
+                </p>
+            </div>
+                    <!-- Conditional Rendering to determine whether to display a container for a table of results or no results-->
+                    <!-- First pathway is which there is leaderboard data to display so table with headers (title of columns) is inputted and then data put into the table-->
+                    {% if filtered_leaderboard_data %}
+                    <!-- Leaderboard Table -->
+                    <table>
+                    <!-- Table header section which sets the titles of the columns -->
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th>Net Score</th>
+                        </tr>
+                    </thead>
+                    <!-- Body of the table -->
+                    <tbody>
+                        <!-- Loop through each submission and display its details in the table -->
+                        {% for user in filtered_leaderboard_data %}
+                            <tr>
+                                <td>{{ user.rank }}</td>
+                                <td>{{ user.name }}</td>
+                                <td>{{ user['overall score'] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    </table>
+                    <!-- Second Pathway of the conditional rendering where there are no results to display-->
+                    {% else %}
+                        <!-- No results container which displays text to say no results found and provides a button to navigate back to the search page -->
+                        <div class="no-results-container" style="text-align: center;">
+                            <img src="{{ url_for('static', filename='images/notfound.png') }}" alt="No Results" class="no-results-icon" />
+                            <h2>No Results Found</h2>
+                            <p class="no-results-text">
+                                We couldn't find any matching records. You can try adjusting your search filters or return to the search page.
+                            </p>
+                            <button class="back-button" onclick="window.location.href='/search'">Go Back to Search</button>
+                        </div>
+                    {% endif %}
+        </div>
+    </div>
+</body>
+</html>

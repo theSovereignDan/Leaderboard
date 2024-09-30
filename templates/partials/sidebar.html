@@ -1,0 +1,39 @@
+<div class="side-bar">
+    <!-- Sidebar header container which is for the name of the web-app and logo-->
+    <div class="sidebar-header">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" style="width: 50px; height: auto;" />
+        <h2>ScoreQuest</h2>
+    </div>
+
+    <!-- Start of sidebar menu container which contains the buttons to click and text for different sections-->
+    <div>
+        <!-- All goes into un-ordered list -->
+        <ul>
+            <li><h2 class="menuheader">Leaderboards</h2></li>
+            <!-- un-ordered list for the leaderboard "buttons" (technically ordered list items with links attached) -->
+            <ul class="leaderboard-buttons">
+                <li><a href="/">All Scores</a></li>
+                <li><a href="/top20scores">Top 20 Scores</a></li>
+                <li><a href="/worst20scores">Worst 20 Scores</a></li>
+            </ul>
+            <!-- Search text with "button" underneath it -->
+            <li><h2 class="menuheader">Search</h2></li>
+            <li>
+                <a href="/search" style="display: flex; align-items: center; font-size: 1.25rem" id="searchTextInSideBar">
+                    <img src="{{ url_for('static', filename='images/search.png') }}" alt="Search" style="width: 60px; height: auto; margin-right: 17px;" />
+                    Search
+                </a>
+            </li>
+            <!-- Submissions text with "button" underneath it -->
+            <li>
+                <h2 class="menuheader">Submissions</h2>
+            </li>
+            <li>
+                <a href="/findbyuser" style="display: flex; align-items: center; font-size: 1.25rem;">
+                    <img src="{{ url_for('static', filename='images/user.png') }}" alt="User" style="width: 60px; height: auto; margin-right: 0px;" />
+                    <div style="margin-right: 2px;">Find by User</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
