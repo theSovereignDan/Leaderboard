@@ -41,9 +41,9 @@ Each user's score is based on their individual submissions. Users can:
 -   Sort submissions by date (ascending or descending).
 -   Sort submissions by score (ascending or descending).
 
--   **Submission View**:
+-   **Choose to filter between seeing**:
 
--   See a user's best 24 submissions (this impacts their leaderboard rank).
+-   A user's best 24 submissions (with minimum of 3) that qualifies them to leadership board.
 -   Alternatively, view all of a user's submissions.
 
 **4\. Dynamic and Responsive UI**
