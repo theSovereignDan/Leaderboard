@@ -60,10 +60,6 @@ Each user's score is based on their individual submissions. Users can:
 
 To get started, clone the repository to your local machine:
 
-bash
-
-Copy code
-
 git clone https://github.com/theSovereignDan/ScoreQuest
 
 cd ScoreQuest
