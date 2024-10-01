@@ -98,8 +98,6 @@ This will execute all the tests
 
 The application is organized into the following structure:
 
-bash
-
 .
 
 ├── static
